@@ -1,7 +1,11 @@
 package ducampo.controller;
 
+import ducampo.dao.BairroDAO;
 import ducampo.dao.ClienteDAO;
+import ducampo.dao.SexoDAO;
+import ducampo.model.Bairro;
 import ducampo.model.Cliente;
+import ducampo.model.Sexo;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -33,6 +37,16 @@ public class ClienteBean {
     
     public List<Cliente> getClientes() {
         ClienteDAO dao = new ClienteDAO();
+        return dao.selectAll();
+    }
+    
+    public List<Sexo> getSexos() {
+        SexoDAO dao = new SexoDAO();
+        return dao.selectAll();
+    }
+    
+    public List<Bairro> getBairros() {
+        BairroDAO dao = new BairroDAO();
         return dao.selectAll();
     }
     

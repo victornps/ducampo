@@ -1,12 +1,151 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Cliente</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery-3.2.1.min.js" />
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="formCadastroCliente">
+                        <fieldset>
+                            <legend>Dados do Cliente</legend>
+                            <div class="form-group">
+                                <h:outputLabel for="nome" value="Nome" />
+                                <h:inputText id="nome" value="#{clienteBean.cliente.nome}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="cpf" value="Cpf" />
+                                <h:inputText id="cpf" value="#{clienteBean.cliente.cpf}" styleClass="form-control" />
+                            </div>
+                           <div class="form-group">
+                                <h:outputLabel for="sexo" value="Sexo" />
+                                <h:selectOneMenu id="sexo" value="#{clienteBean.cliente.sexo}" converter="sexoConverter" styleClass="form-control">
+                                    <f:selectItem itemLabel="Selecione um sexo" itemDisabled="true" />
+                                    <f:selectItems value="#{clienteBean.sexos}" var="sexo" itemLabel="#{sexo.nome}" itemValue="#{sexo}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="fone" value="Fone" />
+                                <h:inputText id="fone" value="#{clienteBean.cliente.fone}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="email" value="E-mail" />
+                                <h:inputText id="email" value="#{clienteBean.cliente.email}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="logradouro" value="Logradouro" />
+                                <h:inputText id="logradouro" value="#{clienteBean.cliente.logradouro}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="numero" value="Número" />
+                                <h:inputText id="numero" value="#{clienteBean.cliente.numero}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="complemento" value="Complemento" />
+                                <h:inputText id="complemento" value="#{clienteBean.cliente.complemento}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="cep" value="Cep" />
+                                <h:inputText id="cep" value="#{clienteBean.cliente.cep}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="bairro" value="Bairro" />
+                                <h:selectOneMenu id="bairro" value="#{clienteBean.cliente.bairro}" converter="bairroConverter" styleClass="form-control">
+                                    <f:selectItem itemLabel="Selecione um bairro" itemDisabled="true" />
+                                    <f:selectItems value="#{clienteBean.bairros}" var="bairro" itemLabel="#{bairro.nome}" itemValue="#{bairro}" />
+                                </h:selectOneMenu>
+                            </div>
+                           
+                            
+                            <h:commandButton value="Salvar" action="#{clienteBean.salvar}" styleClass="btn btn-primary btn-block">
+                                <f:ajax execute="@form" render="@form :formListaClientes" />
+                            </h:commandButton>
+                        </fieldset>
+                    </h:form>
+                </div>
+                <div class="col-md-6">
+                    <h:form id="formListaClientes">
+                        <fieldset>
+                            <legend>Lista de Clientes</legend>
+                            <h:dataTable id="tabelaClientes" value="#{clienteBean.clientes}" var="cliente" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    <h:outputText value="#{cliente.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet>
+                                    <h:outputText value="#{cliente.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Cpf</f:facet>
+                                    <h:outputText value="#{cliente.cpf}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Sexo</f:facet>
+                                    <h:outputText value="#{cliente.sexo.sigla}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Fone</f:facet>
+                                    <h:outputText value="#{cliente.fone}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">E-Mail</f:facet>
+                                    <h:outputText value="#{cliente.email}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Logradouro</f:facet>
+                                    <h:outputText value="#{cliente.logradouro}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Número</f:facet>
+                                    <h:outputText value="#{cliente.numero}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Complemento</f:facet>
+                                    <h:outputText value="#{cliente.complemento}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Cep</f:facet>
+                                    <h:outputText value="#{cliente.cep}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Bairro</f:facet>
+                                    <h:outputText value="#{cliente.bairro.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Cidade</f:facet>
+                                    <h:outputText value="#{cliente.bairro.cidade.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Estado</f:facet>
+                                    <h:outputText value="#{cliente.bairro.cidade.estado.nome}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <h:commandButton value="editar" action="#{clienteBean.editar(cliente)}" styleClass="btn btn-success btn-block">
+                                        <f:ajax execute="@form" render="@all" />
+                                    </h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="excluir" action="#{clienteBean.remover(cliente)}" styleClass="btn btn-danger btn-block">
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    <h:button value="Index" outcome="index" />
     </h:body>
 </html>
 
