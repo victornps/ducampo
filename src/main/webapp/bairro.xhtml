@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Bairro</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery-3.2.1.min.js" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="formCadastroBairro">
+                        <fieldset>
+                            <legend>Dados do Bairro</legend>
+                            <div class="form-group">
+                                <h:outputLabel for="nome" value="Nome" />
+                                <h:inputText id="nome" value="#{bairroBean.bairro.nome}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="cidade" value="Cidade" />
+                                <h:selectOneMenu id="cidade" value="#{bairroBean.bairro.cidade}" converter="cidadeConverter" styleClass="form-control">
+                                    <f:selectItem itemLabel="Selecione uma cidade" itemDisabled="true" />
+                                    <f:selectItems value="#{bairroBean.cidades}" var="cidade" itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+                                </h:selectOneMenu>
+                            </div>
+                            
+                            
+                            <h:commandButton value="Salvar" action="#{bairroBean.salvar}" styleClass="btn btn-primary btn-block">
+                                <f:ajax execute="@form" render="@form :formListaBairros" />
+                            </h:commandButton>
+                        </fieldset>
+                    </h:form>
+                </div>
+                <div class="col-md-6">
+                    <h:form id="formListaBairros">
+                        <fieldset>
+                            <legend>Lista de Bairros</legend>
+                            <h:dataTable id="tabelaBairros" value="#{bairroBean.bairros}" var="bairro" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    <h:outputText value="#{bairro.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet>
+                                    <h:outputText value="#{bairro.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Cidade</f:facet>
+                                    <h:outputText value="#{bairro.cidade.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Estado</f:facet>
+                                    <h:outputText value="#{bairro.cidade.estado.nome}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <h:commandButton value="editar" action="#{bairroBean.editar(bairro)}" styleClass="btn btn-success btn-block">
+                                        <f:ajax execute="@form" render="@all" />
+                                    </h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="excluir" action="#{bairroBean.remover(bairro)}" styleClass="btn btn-danger btn-block">
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    <h:button value="Index" outcome="index" />
+    </h:body>
+</html>
+

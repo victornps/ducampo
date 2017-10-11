@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Cidade</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery-3.2.1.min.js" />
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="formCadastroCidade">
+                        <fieldset>
+                            <legend>Dados da Cidade</legend>
+                            <div class="form-group">
+                                <h:outputLabel for="nome" value="Nome" />
+                                <h:inputText id="nome" value="#{cidadeBean.cidade.nome}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="estado" value="Estado" />
+                                <h:selectOneMenu id="estado" value="#{cidadeBean.cidade.estado}" converter="estadoConverter" styleClass="form-control">
+                                    <f:selectItem itemLabel="Selecione um estado" itemDisabled="true" />
+                                    <f:selectItems value="#{cidadeBean.estados}" var="estado" itemLabel="#{estado.nome}" itemValue="#{estado}" />
+                                </h:selectOneMenu>
+                            </div>
+                            
+                            
+                            <h:commandButton value="Salvar" action="#{cidadeBean.salvar}" styleClass="btn btn-primary btn-block">
+                                <f:ajax execute="@form" render="@form :formListaCidades" />
+                            </h:commandButton>
+                        </fieldset>
+                    </h:form>
+                </div>
+                <div class="col-md-6">
+                    <h:form id="formListaCidades">
+                        <fieldset>
+                            <legend>Lista de Cidades</legend>
+                            <h:dataTable id="tabelaCidades" value="#{cidadeBean.cidades}" var="cidade" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    <h:outputText value="#{cidade.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet>
+                                    <h:outputText value="#{cidade.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Estado</f:facet>
+                                    <h:outputText value="#{cidade.estado.sigla}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <h:commandButton value="editar" action="#{cidadeBean.editar(cidade)}" styleClass="btn btn-success btn-block">
+                                        <f:ajax execute="@form" render="@all" />
+                                    </h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="excluir" action="#{cidadeBean.remover(cidade)}" styleClass="btn btn-danger btn-block">
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    <h:button value="Index" outcome="index" />
+    </h:body>
+</html>
+

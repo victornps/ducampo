@@ -1,7 +1,9 @@
 package ducampo.controller;
 
 import ducampo.dao.CidadeDAO;
+import ducampo.dao.EstadoDAO;
 import ducampo.model.Cidade;
+import ducampo.model.Estado;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -33,6 +35,11 @@ public class CidadeBean {
     
     public List<Cidade> getCidades() {
         CidadeDAO dao = new CidadeDAO();
+        return dao.selectAll();
+    }
+    
+    public List<Estado> getEstados() {
+        EstadoDAO dao = new EstadoDAO();
         return dao.selectAll();
     }
     
