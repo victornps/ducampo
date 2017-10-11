@@ -36,6 +36,18 @@ public class Estado implements Serializable {
         return sigla;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

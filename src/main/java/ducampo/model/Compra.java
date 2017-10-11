@@ -106,6 +106,13 @@ public class Compra implements Serializable {
         return "Compra{" + "id=" + id + ", fornecedor=" + fornecedor + ", produtos=" + produtos + ", data=" + data + ", valor=" + valor + '}';
     }
     
+    public void adicionarProduto(Produto produto) {
+        this.produtos.add(produto);
+        this.valor += produto.getPreco();
+    }
     
+    public void removerProduto(Produto produto) {
+        this.produtos.remove(produto);
+    }
     
 }
