@@ -37,7 +37,7 @@
                     <h:form id="formListaEstados">
                         <fieldset>
                             <legend>Lista de Estados</legend>
-                            <h:dataTable id="tabelaProdutos" value="#{estadoBean.estados}" var="estado" styleClass="table table-striped table-hover">
+                            <h:dataTable id="tabelaEstados" value="#{estadoBean.estados}" var="estado" styleClass="table table-striped table-hover">
                                 <h:column>
                                     <f:facet name="header">Id</f:facet>
                                     <h:outputText value="#{estado.id}" />

@@ -6,42 +6,67 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Categoria</title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+        <h:outputScript library="js" name="bootstrap.min.js" />
+        <h:outputScript library="js" name="jquery-3.2.1.min.js" />
     </h:head>
     <h:body>
-        <h2>Categoria</h2>
-        <fieldset>
-            <legend>Dados da Categoria</legend>
-            <h:form>
-                <h:panelGrid>
-                    <h:outputLabel value="Nome" for="nome" />
-                    <h:inputText id="nome" value="#{categoriaBean.categoria.nome}" />
-                    <h:outputLabel value="Descrição" for="descricao" />
-                    <h:inputTextarea id="descricao" value="#{categoriaBean.categoria.descricao}" />
-                    <h:commandButton value="Salvar" action="#{categoriaBean.salvar}" />
-                </h:panelGrid>
-            </h:form>
-        </fieldset>
-        <fieldset>
-            <legend>Lista de Categorias</legend>
-            <h:form>
-                <h:dataTable value="#{categoriaBean.categorias}" var="categoria">
-                    <h:column>
-                        <f:facet name="header">Id</f:facet>
-                        <h:outputText value="#{categoria.id}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">Nome</f:facet>
-                        <h:outputText value="#{categoria.nome}" />
-                    </h:column>
-                    <h:column>
-                        <h:commandLink value="editar" action="#{categoriaBean.editar(categoria)}" />
-                    </h:column>
-                    <h:column>
-                        <h:commandLink value="remover" action="#{categoriaBean.remover(categoria)}" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </fieldset>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h:form id="formCadastroCategoria">
+                        <fieldset>
+                            <legend>Dados da Categoria</legend>
+                            <div class="form-group">
+                                <h:outputLabel for="nome" value="Nome" />
+                                <h:inputText id="nome" value="#{categoriaBean.categoria.nome}" styleClass="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="descricao" value="Descrição" />
+                                <h:inputTextarea id="descricao" value="#{categoriaBean.categoria.descricao}" styleClass="form-control" />
+                            </div>
+                            
+                            
+                            <h:commandButton value="Salvar" action="#{categoriaBean.salvar}" styleClass="btn btn-primary btn-block">
+                                <f:ajax execute="@form" render="@form :formListaCategorias" />
+                            </h:commandButton>
+                        </fieldset>
+                    </h:form>
+                </div>
+                <div class="col-md-6">
+                    <h:form id="formListaCategorias">
+                        <fieldset>
+                            <legend>Lista de Categorias</legend>
+                            <h:dataTable id="tabelaCategorias" value="#{categoriaBean.categorias}" var="categoria" styleClass="table table-striped table-hover">
+                                <h:column>
+                                    <f:facet name="header">Id</f:facet>
+                                    <h:outputText value="#{categoria.id}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Nome</f:facet>
+                                    <h:outputText value="#{categoria.nome}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">Descrição</f:facet>
+                                    <h:outputText value="#{categoria.descricao}" />
+                                </h:column>
+                                
+                                <h:column>
+                                    <h:commandButton value="editar" action="#{categoriaBean.editar(categoria)}" styleClass="btn btn-success btn-block">
+                                        <f:ajax execute="@form" render="@all" />
+                                    </h:commandButton>
+                                </h:column>
+                                <h:column>
+                                    <h:commandButton value="excluir" action="#{categoriaBean.remover(categoria)}" styleClass="btn btn-danger btn-block">
+                                        <f:ajax execute="@form" render="@form" />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </fieldset>
+                    </h:form>
+                </div>
+            </div>
+        </div>
     <h:button value="Index" outcome="index" />
     </h:body>
 </html>
