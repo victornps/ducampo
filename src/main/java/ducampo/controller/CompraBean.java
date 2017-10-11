@@ -43,7 +43,7 @@ public class CompraBean {
         return dao.buscarPorNome(nome);
     }
 
-    public List<Fornecedor> getFornecedoresPorCpf(String cnpj) {
+    public List<Fornecedor> getFornecedoresPorCnpj(String cnpj) {
         FornecedorDAO dao = new FornecedorDAO();
         return dao.buscarPorCnpj(cnpj);
     }

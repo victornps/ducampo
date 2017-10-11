@@ -1,6 +1,8 @@
 package ducampo.controller;
 
+import ducampo.dao.BairroDAO;
 import ducampo.dao.FornecedorDAO;
+import ducampo.model.Bairro;
 import ducampo.model.Fornecedor;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -33,6 +35,11 @@ public class FornecedorBean {
     
     public List<Fornecedor> getFornecedores() {
         FornecedorDAO dao = new FornecedorDAO();
+        return dao.selectAll();
+    }
+    
+    public List<Bairro> getBairros() {
+        BairroDAO dao = new BairroDAO();
         return dao.selectAll();
     }
     

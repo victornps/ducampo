@@ -1,12 +1,45 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Compra</title>
+        <h:outputScript library="js" name="primefaces-calendar-ptbr.js" />
     </h:head>
     <h:body>
-        Hello from Facelets
+        <p:fieldset legend="Dados da Compra">
+            <h:form id="formCompra">
+                <p:panelGrid columns="1">
+                    <p:outputLabel for="dataCompra" value="Data" />
+                    <p:calendar id="dataCompra" value="#{compraBean.compra.data.time}" locale="pt_BR" pattern="dd/MM/yyyy" showOn="button" />
+                    <p:outputLabel for="fornecedor" value="Fornecedor" />
+                    <p:autoComplete id="fornecedor" value="#{compraBean.fornecedor}" completeMethod="#{compraBean.getFornecedoresPorCnpj}" var="fornecedor" itemLabel="#{fornecedor.nomeFantasia}" itemValue="#{fornecedor}" converter="fornecedorConverter" minQueryLength="3" />
+                    <p:panelGrid>
+                        <p:outputLabel for="produto" value="Produto" />
+                        <p:autoComplete id="produto" value="#{compraBean.produto}" completeMethod="#{compraBean.getProdutosPorNome}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto}" converter="produtoConverter" minQueryLength="3" />
+                        <p:commandButton value="Adicionar" action="#{compraBean.adicionarProduto}" process="@this produto" update="produto formListaProdutos:tabelaProdutos valorCompra" />
+                    </p:panelGrid>
+                    <h:form id="formListaProdutos">
+                        <p:dataTable id="tabelaProdutos" value="#{compraBean.compra.produtos}" var="produto">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{produto.id}" />
+                            </p:column>
+                            <p:column headerText="Nome">
+                                <h:outputText value="#{produto.nome}" />
+                            </p:column>
+                            <p:column headerText="Preço">
+                                <h:outputText value="#{produto.preco}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                    <p:outputLabel for="valorCompra" value="Valor" />
+                    <h:outputText id="valorCompra" value="#{compraBean.compra.valor}" />
+                    <p:commandButton value="Salvar" action="#{compraBean.salvar}" process="@form" update="@all" />
+
+                </p:panelGrid>
+            </h:form>
+        </p:fieldset>
+    <h:button value="Index" outcome="index" />    
     </h:body>
 </html>
-
